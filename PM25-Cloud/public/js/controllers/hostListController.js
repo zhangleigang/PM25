@@ -257,7 +257,7 @@ angular.module('pm25').controller('hostListController', ['$scope', '$filter', '$
     };
 
     $scope.doLogout = function() {
-        location.href = 'https://sso.sankuai.com/logout';
+        location.href = 'https://sso.yourdomain.com/logout';
     };
 
     $scope.triggerManage = function() {
