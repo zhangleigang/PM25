@@ -17,14 +17,14 @@ module.exports = function(router) {
     router.get('/bucket/:bucket/:public_key', function(req, res) {
         res.render('index', {
             servertime: new Date().getTime(),
-            uuid: req.session.user.id,
+            uuid: 'zhangleigang',
             bucket: req.params.bucket,
             public_key: req.params.public_key
         });
     });
 
     router.get('/buckets', async function(req, res) {
-        var userAllBucketsResult = await models.buckets.getUserAllBucketsByUUID(req.session.user.id);
+        var userAllBucketsResult = await models.buckets.getUserAllBucketsByUUID('zhangleigang');
 
         if(userAllBucketsResult) {
             res.render('buckets', {
