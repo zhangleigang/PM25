@@ -13,7 +13,6 @@ var rewriteModule = require('http-rewrite-middleware');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var app = express();
-var ssoauth = require('your-ssoauth-middleware');
 var config = require('./configure');
 
 // keep the same rule with nginx rewrite
@@ -41,7 +40,8 @@ app.use(cookieParser());
 app.use(rewriteMiddleware);
 
 // for production environment
-app.set('env', 'production');
+// app.set('env', 'production');
+app.set('env', 'localhost');
 
 if(app.get('env') === 'production') {
     app.set('views', path.join(__dirname, 'build/templates'));
@@ -59,14 +59,6 @@ app.use(session({
     store: new MongoStore({ url: config.sessiondbpath }),
     cookie: { secure: false, httpOnly: false, maxAge: 120 * 60 * 1000 * 100 }
 }));
-
-/// ssoauth
-app.use(unless('/settoken', ssoauth({
-    clientId: 'clientId',
-    clientSecret: 'clientSecret',
-    redirect: 'server',
-    settoken: '/settoken?continue='
-})));
 
 /// dynamically include controllers
 app.use(enrouten({directory: 'controllers'}));
