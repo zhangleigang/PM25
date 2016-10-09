@@ -201,5 +201,5 @@ rpcServer.expose('profiling', function(machine_name, public_key, message, fn, pr
 });
 
 wss.on('connection', connection);
-req.connect(43555);
+req.connect(43555,'localhost');
 rep.bind(43666);
